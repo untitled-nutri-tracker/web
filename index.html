@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutrition Tracker - Local-First AI Nutrition Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --vt-orange: #FF6633;
+            --vt-dark: #1d3557;
+            --vt-light: #f1faee;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica',
+                'Arial', sans-serif;
+            background: linear-gradient(135deg, var(--vt-light) 0%, #ffffff 100%);
+            color: #333;
+        }
+
+        /* Header/Navigation */
+        .navbar {
+            background-color: var(--vt-dark);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--vt-orange) !important;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--vt-dark) 0%, #2c5aa0 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-orange {
+            background-color: var(--vt-orange);
+            border-color: var(--vt-orange);
+            color: white;
+            font-weight: 600;
+            padding: 10px 30px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-orange:hover {
+            background-color: #ff5511;
+            border-color: #ff5511;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 102, 51, 0.3);
+        }
+
+        /* Content Sections */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--vt-dark);
+            margin-bottom: 50px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background-color: var(--vt-orange);
+            border-radius: 2px;
+        }
+
+        /* Introduction Section */
+        .intro-content {
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: #555;
+        }
+
+        .intro-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight-box {
+            background: white;
+            border-left: 4px solid var(--vt-orange);
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        /* Architecture Image */
+        .architecture-container {
+            text-align: center;
+            margin: 50px 0;
+        }
+
+        .architecture-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .architecture-container img:hover {
+            transform: scale(1.02);
+        }
+
+        /* Links Section */
+        .links-section {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .link-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border: none;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--vt-dark);
+            display: block;
+        }
+
+        .link-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+            color: var(--vt-dark);
+            text-decoration: none;
+        }
+
+        .link-card.github {
+            background: linear-gradient(135deg, #333 0%, #555 100%);
+            color: white;
+        }
+
+        .link-card.github:hover {
+            color: white;
+        }
+
+        .link-card.youtube {
+            background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+            color: white;
+        }
+
+        .link-card.youtube:hover {
+            color: white;
+        }
+
+        .link-card.slides {
+            background: linear-gradient(135deg, #4285F4 0%, #34A853 100%);
+            color: white;
+        }
+
+        .link-card.slides:hover {
+            color: white;
+        }
+
+        .link-card i {
+            font-size: 2rem;
+            margin-right: 15px;
+            vertical-align: middle;
+        }
+
+        .link-card-text h3 {
+            margin: 0;
+            font-weight: 600;
+            font-size: 1.3rem;
+        }
+
+        .link-card-text p {
+            margin: 5px 0 0 0;
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        /* Features/Key Takeaways */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-top: 4px solid var(--vt-orange);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+
+        .feature-card h4 {
+            color: var(--vt-orange);
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--vt-dark);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        footer p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        footer a {
+            color: var(--vt-orange);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 50px 0;
+            }
+        }
+
+        .link-card-content {
+            display: flex;
+            align-items: center;
+        }
+
+        .link-card-content div {
+            flex: 1;
+        }
+
+        /* Video Container */
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .teaser-section {
+            background: linear-gradient(135deg, rgba(29, 53, 87, 0.05) 0%, rgba(255, 102, 51, 0.05) 100%);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home">
+                <i class="fas fa-leaf"></i> Nutrition Tracker
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Nutrition Tracker</h1>
+            <p class="subtitle">Local-First AI Nutrition Management</p>
+            <p style="font-size: 1.1rem; opacity: 0.9; margin-bottom: 40px;">
+                Privacy-preserving nutrition tracking with AI-powered insights
+            </p>
+            <div>
+                <a href="#intro" class="btn btn-orange me-3">
+                    <i class="fas fa-book"></i> Learn More
+                </a>
+                <a href="https://github.com/untitled-nutri-tracker/nutrition-tracker" class="btn btn-outline-light">
+                    <i class="fab fa-github"></i> View on GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Teaser Video Section -->
+    <section class="section teaser-section">
+        <div class="container">
+            <h2 class="section-title">Watch the Teaser</h2>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/LW0srAxjfQs" title="Nutrition Tracker - Teaser Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section class="section">
+        <div class="container"> 
+            <h2 class="section-title">About the Project</h2>           
+            <div class="links-section">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <a href="https://virginiatech-my.sharepoint.com/:p:/g/personal/lzechen_vt_edu/IQCL7RbAuCrWQqPVmlc7eAVoAVNNLeMvbt_Hj810IHXP6fg?e=OutPke" class="link-card slides" target="_blank">
+                            <div class="link-card-content">
+                                <i class="fas fa-presentation"></i>
+                                <div class="link-card-text">
+                                    <h3>Presentation Slides</h3>
+                                    <p>View the full presentation deck</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <a href="https://github.com/untitled-nutri-tracker/nutrition-tracker/releases/latest" class="link-card github" target="_blank">
+                            <div class="link-card-content">
+                                <i class="fas fa-download"></i>
+                                <div class="link-card-text">
+                                    <h3>Releases & Downloads</h3>
+                                    <p>Download the latest version</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Introduction Section -->
+    <section class="section" id="intro">
+        <div class="container">
+            <h2 class="section-title">About the Project</h2>
+            
+            <div class="intro-content">
+                <p>
+                    Most nutrition apps depend on cloud storage and server-side analysis, requiring users to upload sensitive health data. This creates privacy risks, weakens data ownership, and limits offline access. AI nutrition tools also struggle with long-term diet history because verbose formats like JSON quickly consume LLM context windows.
+                </p>
+
+                <p>
+                    We built a <strong>local-first AI nutrition tracker</strong> that keeps the database on-device, supports offline nutrition logging, and lets users choose their own AI model provider. A compact <code>.nlog</code> protocol sends only selected, token-efficient context to the AI advisor instead of exposing the full history.
+                </p>
+
+                <div class="highlight-box">
+                    <h4 style="color: var(--vt-orange); margin-top: 0;">Why Local-First?</h4>
+                    <p>
+                        Existing tools such as MyFitnessPal and Lose It! provide food search, barcode scanning, and nutrition tracking, but commonly rely on cloud databases and server-side processing. Our prototype replaces cloud dependence with <strong>local SQLite storage</strong>, <strong>BYOM (Bring Your Own Model) AI access</strong>, and <strong>compact nutrition serialization</strong>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section class="section" style="background-color: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title">System Architecture</h2>
+            
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="architecture-container">
+                        <img src="poster/images/system-design.png" alt="System Design Architecture">
+                        <p style="color: #666; margin-top: 20px; font-style: italic;">
+                            Complete local-first stack: SQLite stores meals on-device; AI calls made only for specific context
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-md-6 mb-4">
+                    <div class="feature-card">
+                        <h4><i class="fas fa-lock"></i> Local-First Storage</h4>
+                        <p>Nutrition logs and profiles stay in SQLite on the user's device. Complete data ownership and offline access.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="feature-card">
+                        <h4><i class="fas fa-robot"></i> Bring Your Own Model</h4>
+                        <p>Users can connect OpenAI or local Ollama instead of being locked into one vendor.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="feature-card">
+                        <h4><i class="fas fa-file-code"></i> Compact Serialization</h4>
+                        <p>The <code>.nlog</code> transpiler converts SQL nutrition records into compact AI-ready context without consuming excessive LLM tokens.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="feature-card">
+                        <h4><i class="fas fa-thunder-cloud"></i> Tauri + Rust Backend</h4>
+                        <p>Lightweight desktop app with fast local processing and native OS integration.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Learnings Section -->
+    <section class="section" style="background-color: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title">Key Learnings</h2>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <h4>Mobile Interaction Friction</h4>
+                    <p>iOS keyboard focus and safe-area navigation required hardened event handling; iteratively tested on device.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Hardware Resource Management</h4>
+                    <p>Proper camera cleanup crucial for releasing OS resources; solved through React cleanup hooks and native stubs.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>AI Context Efficiency</h4>
+                    <p>Long-term history overwhelms LLM windows; fixed by restricting to user-selected date ranges and compact serialization.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Technical Debt Reduction</h4>
+                    <p>Migrated from inline CSS to Tailwind v4 utilities, reducing bundle size while improving maintainability across 50+ components.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Conclusion Section -->
+    <section class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <h2 class="section-title">Conclusion</h2>
+                    
+                    <div class="highlight-box">
+                        <ul style="margin-bottom: 0; line-height: 2;">
+                            <li><strong>Privacy & Data Ownership:</strong> Local-first nutrition tracking can protect sensitive health data while still supporting useful AI features.</li>
+                            <li><strong>AI Efficiency:</strong> Compact serialization through <code>.nlog</code> makes long-term nutrition analysis more practical for LLMs.</li>
+                            <li><strong>User Control:</strong> User-controlled AI improves transparency and trust compared with fully cloud-based nutrition platforms.</li>
+                            <li><strong>Feasibility:</strong> The project shows that privacy, usability, and AI assistance can coexist in one nutrition management system.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p style="margin-bottom: 10px;">
+                <strong>Nutrition Tracker</strong> - Group 20
+            </p>
+            <p>
+                <i class="fas fa-users" style="margin-right: 8px;"></i>
+                Zechen Li, Vineet Marri, Shi Qiu, Pierre Tran, Zehong Wang
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

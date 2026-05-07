@@ -74,6 +74,45 @@
             box-shadow: 0 8px 20px rgba(255, 102, 51, 0.3);
         }
 
+        .btn-demo {
+            background-color: #10b981;
+            border-color: #10b981;
+            color: white;
+            font-weight: 600;
+            padding: 10px 30px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-demo:hover {
+            background-color: #059669;
+            border-color: #059669;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .hero .btn {
+            padding: 10px 30px;
+            font-weight: 600;
+        }
+
+        .hero .btn-outline-light {
+            border-width: 2px;
+        }
+
+        .hero > .container > div {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hero .btn {
+            flex: 1;
+            min-width: 220px;
+            max-width: 260px;
+        }
+
         /* Content Sections */
         .section {
             padding: 80px 0;
@@ -299,21 +338,16 @@
 
         /* Video Container */
         .video-container {
-            position: relative;
             width: 100%;
-            max-width: 900px;
+            max-width: 100%;
             margin: 0 auto;
-            padding-bottom: 56.25%;
-            height: 0;
+            aspect-ratio: 16 / 9;
             overflow: hidden;
             border-radius: 12px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.15);
         }
 
         .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
             border: none;
@@ -342,9 +376,12 @@
             <p style="font-size: 1.1rem; opacity: 0.9; margin-bottom: 40px;">
                 Privacy-preserving nutrition tracking with AI-powered insights
             </p>
-            <div>
-                <a href="#intro" class="btn btn-orange me-3">
+            <div style="display: flex; gap: 15px; justify-content: center; max-width: 700px; margin: 0 auto;">
+                <a href="#intro" class="btn btn-orange">
                     <i class="fas fa-book"></i> Learn More
+                </a>
+                <a href="http://54.157.132.17:6080/vnc.html" class="btn btn-demo" target="_blank">
+                    <i class="fas fa-play-circle"></i> Live Demo
                 </a>
                 <a href="https://github.com/untitled-nutri-tracker/nutrition-tracker" class="btn btn-outline-light">
                     <i class="fab fa-github"></i> View on GitHub
@@ -366,10 +403,10 @@
     <!-- Resources Section -->
     <section class="section">
         <div class="container"> 
-            <h2 class="section-title">About the Project</h2>           
+            <h2 class="section-title">Resources</h2>           
             <div class="links-section">
                 <div class="row">
-                    <div class="col-md-6 mb-3">
+                    <div class="col-lg-4 mb-3">
                         <a href="https://virginiatech-my.sharepoint.com/:p:/g/personal/lzechen_vt_edu/IQCL7RbAuCrWQqPVmlc7eAVoAVNNLeMvbt_Hj810IHXP6fg?e=OutPke" class="link-card slides" target="_blank">
                             <div class="link-card-content">
                                 <i class="fas fa-presentation"></i>
@@ -380,13 +417,24 @@
                             </div>
                         </a>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-lg-4 mb-3">
                         <a href="https://github.com/untitled-nutri-tracker/nutrition-tracker/releases/latest" class="link-card github" target="_blank">
                             <div class="link-card-content">
                                 <i class="fas fa-download"></i>
                                 <div class="link-card-text">
                                     <h3>Releases & Downloads</h3>
                                     <p>Download the latest version</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 mb-3">
+                        <a href="https://github.com/untitled-nutri-tracker/web/blob/main/poster/poster.pdf" class="link-card github" target="_blank">
+                            <div class="link-card-content">
+                                <i class="fas fa-file-pdf"></i>
+                                <div class="link-card-text">
+                                    <h3>Research Poster</h3>
+                                    <p>View the full poster PDF</p>
                                 </div>
                             </div>
                         </a>
